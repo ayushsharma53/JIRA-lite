@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: jira-lite-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/jira_lite}
+    username: ${DATABASE_USERNAME:jira_lite}
+    password: ${DATABASE_PASSWORD:jira_lite}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  cookie:
+    secure: ${COOKIE_SECURE:false}
+  jwt:
+    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me-change-me}
+    access-token-minutes: ${JWT_ACCESS_TOKEN_MINUTES:15}
+    refresh-token-days: ${JWT_REFRESH_TOKEN_DAYS:30}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html

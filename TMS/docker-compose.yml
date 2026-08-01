@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: jira_lite
+      POSTGRES_USER: jira_lite
+      POSTGRES_PASSWORD: jira_lite
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jira_lite -d jira_lite"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/jira_lite
+      DATABASE_USERNAME: jira_lite
+      DATABASE_PASSWORD: jira_lite
+      JWT_SECRET: 7b5394982a5c3e5362e49c95a287a943a411516eef1e679a92bb83bf3b3c43ea5621453ab498f3cbb421257134aaef0272ef42d13bcfc73ef91a341e3d55169y
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:

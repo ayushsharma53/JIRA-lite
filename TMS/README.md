@@ -1,49 +1,152 @@
-# Jira Lite Task Management System
+# 🚀 Jira Lite - Project Management System
 
-Production-shaped Jira Lite built with React 19, TypeScript, Vite, TailwindCSS, shadcn-style UI primitives, Tanstack Query, Zustand, Spring Boot 3, Java 21, JWT cookie auth, PostgreSQL, Flyway and Swagger.
+A production-ready **Jira-inspired Task Management Platform** built with **Spring Boot** and **React** that enables teams to organize workspaces, manage projects, assign tasks, and collaborate efficiently. Designed using modern backend architecture, secure JWT authentication, RESTful APIs, and scalable development practices.
 
-## Structure
+## ✨ Features
+
+- 🔐 JWT Authentication & Authorization
+- 👥 Role-Based Access Control (Admin / Member)
+- 🏢 Workspace Management
+- 📁 Project Management
+- ✅ Task Creation & Assignment
+- 📌 Task Status & Priority Management
+- 🔍 Advanced Search & Filtering
+- 📄 Pagination & Sorting
+- 📝 Task Comments
+- 📚 Interactive Swagger API Documentation
+- 🗄️ Database Versioning with Flyway
+- 🐳 Dockerized Development Environment
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- Spring Boot 3
+- Spring Security
+- JWT Authentication
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
+- Flyway
+- MapStruct
+- Maven
+- Swagger / OpenAPI
+
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- TanStack Query
+- Zustand
+
+### DevOps
+- Docker
+- Docker Compose
+
+---
+
+## 📂 Project Structure
 
 ```text
 backend/
-  src/main/java/com/jirolite/
-    auth/
-    workspace/
-    project/
-    task/
-    common/
-  src/main/resources/db/migration/
+ ├── auth/
+ ├── workspace/
+ ├── project/
+ ├── task/
+ ├── common/
+ └── resources/db/migration/
+
 frontend/
-  src/components/
-  src/features/
-  src/lib/
-  src/store/
+ ├── components/
+ ├── features/
+ ├── lib/
+ └── store/
+
 docker-compose.yml
 ```
 
-## Local Development
+---
 
-```bash
-cp .env.example .env
-docker compose up postgres
-cd backend && ./mvnw spring-boot:run
-cd frontend && npm install && npm run dev
+## 🏗️ Architecture
+
+```text
+Client
+   │
+   ▼
+Spring Security (JWT)
+   │
+   ▼
+Controllers
+   │
+   ▼
+Services
+   │
+   ▼
+Repositories
+   │
+   ▼
+PostgreSQL
 ```
 
-Frontend: `http://localhost:5173`  
-Backend: `http://localhost:8080`  
-Swagger: `http://localhost:8080/swagger-ui/index.html`
+---
 
-Seed login:
+## 🚀 Getting Started
+
+### Clone Repository
+
+```bash
+git clone https://github.com/<your-username>/jira-lite.git
+cd jira-lite
+```
+
+### Start PostgreSQL
+
+```bash
+docker compose up postgres
+```
+
+### Backend
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🌐 Local URLs
+
+| Service | URL |
+|---------|-----|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:8080 |
+| Swagger UI | http://localhost:8080/swagger-ui/index.html |
+
+---
+
+## 🔑 Demo Credentials
 
 ```text
 avery@example.com / password
+
 mina@example.com / password
 ```
 
-## API
+---
 
-Authentication:
+## 📚 REST APIs
+
+### Authentication
 
 ```text
 POST /api/auth/register
@@ -52,46 +155,60 @@ POST /api/auth/refresh
 POST /api/auth/logout
 ```
 
-Workspaces, projects and tasks are under `/api/workspaces`, `/api/projects`, and `/api/tasks`. Task search supports Spring pageable parameters such as:
+### Core Modules
 
 ```text
-/api/tasks?page=0&size=10&sort=createdAt,desc&keyword=jwt&status=TODO&priority=HIGH
+/api/workspaces
+/api/projects
+/api/tasks
 ```
 
-## Deployment
-
-Frontend on Vercel:
+### Example Search
 
 ```text
-Root directory: frontend
-Build command: npm run build
-Output directory: dist
-Environment: VITE_API_URL=https://your-railway-api.up.railway.app
+GET /api/tasks?page=0&size=10&sort=createdAt,desc&keyword=jwt&status=TODO&priority=HIGH
 ```
 
-Backend on Railway:
+---
 
-```text
-Root directory: backend
-Builder: Dockerfile
-Environment:
-DATABASE_URL=jdbc:postgresql://<neon-host>/<db>?sslmode=require
-DATABASE_USERNAME=<neon-user>
-DATABASE_PASSWORD=<neon-password>
-JWT_SECRET=<long-random-secret>
-FRONTEND_URL=https://your-vercel-app.vercel.app
-COOKIE_SECURE=true
-```
-
-Database on Neon PostgreSQL:
-
-Create the database, set the Railway environment variables, and Flyway will apply `V1__init_schema.sql` and `V2__seed_data.sql` on startup.
-
-## Tests
+## 🧪 Testing
 
 ```bash
-cd backend && ./mvnw test
-cd frontend && npm run build
+cd backend
+./mvnw test
+
+cd frontend
+npm run build
 ```
 
-Backend tests include Mockito unit tests and a Testcontainers integration test for auth cookies. Docker must be running for the Testcontainers test.
+Backend includes:
+- Unit Testing (Mockito)
+- Integration Testing (Testcontainers)
+
+---
+
+## 📖 Key Backend Concepts Demonstrated
+
+- RESTful API Design
+- JWT Authentication
+- Layered Architecture
+- DTO Pattern
+- Repository Pattern
+- Dependency Injection
+- Validation
+- Global Exception Handling
+- Pagination & Sorting
+- Dynamic Querying with Specifications
+- Database Migrations with Flyway
+- Dockerized Development
+
+---
+
+## ⭐ Future Enhancements
+
+- Email Notifications
+- File Attachments
+- Activity Timeline
+- WebSocket Notifications
+- Analytics Dashboard
+- CI/CD Pipeline

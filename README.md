@@ -197,7 +197,6 @@ Backend includes:
 - Dependency Injection
 - Validation
 - Global Exception Handling
-- Pagination & Sorting
 - Dynamic Querying with Specifications
 - Database Migrations with Flyway
 - Dockerized Development

@@ -33,7 +33,7 @@ export function AuthPage({ mode }: { mode: "login" | "register" }) {
   });
 
   async function onSubmit(values: any) {
-    const { data } = await api.post(`/api/auth/${mode}`, values);
+    const { data } = await api.post(`/auth/${mode}`, values);
     login(data.user);
     navigate("/dashboard");
   }

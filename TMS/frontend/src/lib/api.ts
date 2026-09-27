@@ -1,30 +1,29 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:8080/api";
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  withCredentials: true
 });
 
 api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
+  response => response,
+  async error => {
+    const original = error.config;
 
     if (
       error.response?.status === 401 &&
-      !originalRequest?._retry &&
-      !originalRequest?.url?.includes("/api/auth")
+      !original?._retry &&
+      !original?.url?.includes("/auth/")
     ) {
-      originalRequest._retry = true;
+      original._retry = true;
 
-      try {
-        await api.post("/api/auth/refresh", {});
-        return api(originalRequest);
-      } catch {
-        return Promise.reject(error);
-      }
+      await api.post("/auth/refresh", {});
+
+      return api(original);
     }
 
     return Promise.reject(error);

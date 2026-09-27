@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const checkSession = async () => {
     try {
       // Fetch workspaces as a cheap way to verify session
-      await api.get("/api/workspaces");
+      await api.get("/workspaces");
       return true;
     } catch (error) {
       // Session is invalid
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await api.post("/api/auth/logout", {});
+      await api.post("/auth/logout", {});
     } catch (error) {
       console.error("Logout request failed", error);
     } finally {
